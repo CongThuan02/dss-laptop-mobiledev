@@ -1,0 +1,25 @@
+laptop_id,model,os_platform,price_million_vnd,cpu_score,gpu_score,ram_gb,ssd_gb,battery_hours,weight_kg,simulation_note
+L01,NovaBook Win 14A,Windows,18.5,6200,3100,16,512,8.0,1.45,Dữ liệu mô phỏng
+L02,NovaBook Win 15P,Windows,24.0,7600,5200,16,512,6.5,1.85,Dữ liệu mô phỏng
+L03,Orion Dev 14,Windows,29.5,8400,6100,32,1024,7.0,1.60,Dữ liệu mô phỏng
+L04,Orion Studio 16,Windows,39.5,9500,8500,32,1024,5.5,2.20,Dữ liệu mô phỏng
+L05,Vega Light 13,Windows,22.0,6800,3300,16,512,11.0,1.18,Dữ liệu mô phỏng
+L06,Vega Pro 14,Windows,34.0,8800,6500,32,1024,9.0,1.42,Dữ liệu mô phỏng
+L07,Aster Student 15,Windows,16.5,5700,2700,16,512,7.5,1.70,Dữ liệu mô phỏng
+L08,Aster Power 15,Windows,31.0,9000,7600,32,512,6.0,2.00,Dữ liệu mô phỏng
+L09,Kite Mobile 14,Windows,27.0,7900,4100,16,1024,12.0,1.25,Dữ liệu mô phỏng
+L10,Kite Max 16,Windows,44.0,10200,9200,64,2048,5.0,2.35,Dữ liệu mô phỏng
+L11,Lotus Win 14,Windows,20.0,6500,3000,16,512,9.5,1.38,Dữ liệu mô phỏng
+L12,Lotus Creator 15,Windows,37.0,9300,8100,32,1024,6.0,1.95,Dữ liệu mô phỏng
+L13,Penguin Dev 14,Linux,17.0,6000,2900,16,512,9.0,1.40,Dữ liệu mô phỏng
+L14,Penguin Pro 14,Linux,26.0,8000,4400,32,1024,10.0,1.35,Dữ liệu mô phỏng
+L15,Penguin Compute 15,Linux,36.0,9200,7800,32,1024,6.5,1.90,Dữ liệu mô phỏng
+L16,Penguin Lite 13,Linux,19.5,6300,3000,16,512,12.5,1.15,Dữ liệu mô phỏng
+L17,MacSim Air A,macOS,20.5,7200,3000,8,256,17.0,1.24,Dữ liệu mô phỏng không đại diện sản phẩm thật
+L18,MacSim Air B,macOS,26.0,7400,3100,16,512,17.0,1.24,Dữ liệu mô phỏng không đại diện sản phẩm thật
+L19,MacSim Air B Plus,macOS,32.0,7600,3300,24,512,16.5,1.51,Dữ liệu mô phỏng không đại diện sản phẩm thật
+L20,MacSim Pro 14,macOS,42.0,9200,5600,36,1024,14.0,1.55,Dữ liệu mô phỏng không đại diện sản phẩm thật
+L21,MacSim Pro Max,macOS,58.0,10600,8200,64,2048,12.0,2.15,Dữ liệu mô phỏng không đại diện sản phẩm thật
+L22,NovaBook Basic,Windows,14.0,4800,2200,8,256,8.0,1.50,Dữ liệu mô phỏng
+L23,Penguin Basic,Linux,13.5,4600,2100,8,512,7.0,1.55,Dữ liệu mô phỏng
+L24,Orion Compact,Windows,28.5,8200,5000,16,512,10.5,1.30,Dữ liệu mô phỏng

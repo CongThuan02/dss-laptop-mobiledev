@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="LaptopFit giúp bạn chọn nhanh laptop phù hợp để lập trình di động Android, iOS hoặc đa nền tảng dựa trên ngân sách và nhu cầu của bạn.">
+  <title>LaptopFit — Tìm laptop phù hợp cho lập trình di động</title>
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <span class="logo">LF</span>
+    <div>
+      <strong>LaptopFit</strong>
+      <span>Trợ lý chọn laptop cho lập trình di động</span>
+    </div>
+  </div>
+  <span class="badge">Dữ liệu minh họa</span>
+</header>
+
+<section class="hero">
+  <h1>Tìm laptop phù hợp để lập trình di động trong vài giây</h1>
+  <p>Cho chúng tôi biết bạn làm Android, iOS hay cả hai, ngân sách và yêu cầu cấu hình — hệ thống sẽ lọc và xếp hạng các lựa chọn phù hợp nhất với bạn.</p>
+</section>
+
+<main>
+  <section class="panel controls">
+    <h2>1. Cho chúng tôi biết nhu cầu của bạn</h2>
+    <form method="post" enctype="multipart/form-data">
+      <div class="grid2">
+        <label>Bạn phát triển cho nền tảng nào?
+          <select name="target">
+            <option value="android" {% if target == 'android' %}selected{% endif %}>Android</option>
+            <option value="ios" {% if target == 'ios' %}selected{% endif %}>iOS (cần máy chạy macOS/Xcode)</option>
+            <option value="cross_platform" {% if target == 'cross_platform' %}selected{% endif %}>Cả Android và iOS</option>
+          </select>
+        </label>
+        <label>Bạn ưu tiên điều gì nhất?
+          <select name="scenario">
+            {% for key, scenario in scenarios.items() %}
+            <option value="{{ key }}" {% if key == selected_scenario %}selected{% endif %}>{{ scenario.label }}</option>
+            {% endfor %}
+          </select>
+        </label>
+      </div>
+      <div class="grid3">
+        <label>Ngân sách tối đa (triệu đồng)<input type="number" step="0.5" min="1" name="max_budget" value="{{ constraints.max_budget }}"></label>
+        <label>RAM tối thiểu (GB)<input type="number" step="1" min="1" name="min_ram" value="{{ constraints.min_ram }}"></label>
+        <label>Dung lượng ổ cứng tối thiểu (GB)<input type="number" step="1" min="1" name="min_ssd" value="{{ constraints.min_ssd }}"></label>
+      </div>
+      <div class="actions">
+        <button type="submit">Tìm laptop phù hợp</button>
+        {% if dataset_source %}<button type="submit" name="reset_dataset" value="1" class="secondary">Dùng lại dữ liệu mặc định</button>{% endif %}
+      </div>
+
+      <details class="advanced">
+        <summary>Dùng dữ liệu laptop của riêng bạn (tuỳ chọn nâng cao)</summary>
+        <div class="advanced-body">
+          <div class="dataset-bar">
+            <div>
+              <span class="eyebrow">DỮ LIỆU ĐANG DÙNG</span>
+              {% if dataset_source %}
+              <p>File đã tải lên: <strong>{{ dataset_source }}</strong></p>
+              {% else %}
+              <p>Bộ dữ liệu mặc định (24 laptop minh họa)</p>
+              {% endif %}
+            </div>
+            <a class="button-like" href="{{ url_for('download_template') }}">Tải file mẫu (CSV)</a>
+          </div>
+          <label>Tải lên file đã điền (CSV theo đúng file mẫu)
+            <input type="file" name="dataset_file" accept=".csv">
+          </label>
+          <p class="hint">Điền laptop của bạn theo đúng cột trong file mẫu rồi tải lên; hệ thống sẽ lọc và xếp hạng trên chính các dòng bạn cung cấp.</p>
+        </div>
+      </details>
+    </form>
+    {% if error %}<p class="error">{{ error }}</p>{% endif %}
+  </section>
+
+  <section class="metrics">
+    <article><strong>{{ result.ranked|length }}</strong><span>Lựa chọn phù hợp</span></article>
+    <article><strong>{{ result.rejected|length }}</strong><span>Lựa chọn bị loại</span></article>
+    <article><strong>{{ scenarios[selected_scenario].label }}</strong><span>Ưu tiên đang chọn</span></article>
+  </section>
+
+  <section class="panel">
+    <div class="section-title"><div><span class="eyebrow">KẾT QUẢ</span><h2>2. Gợi ý hàng đầu cho bạn</h2></div><p>Điểm số phụ thuộc vào yêu cầu và ưu tiên bạn đã chọn ở trên.</p></div>
+    {% if result.ranked %}
+    <div class="cards">
+      {% for row in result.ranked[:5] %}
+      <article class="laptop-card">
+        <span class="rank">#{{ row.rank }}</span>
+        <div><h3>{{ row.model }}</h3><p>{{ row.os_platform }} · {{ row.price_million_vnd|round(1) }} triệu · {{ row.ram_gb|int }} GB RAM · {{ row.ssd_gb|int }} GB SSD</p></div>
+        <strong class="score">{{ '%.4f'|format(row.score) }}</strong>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}<p class="empty">Chưa có laptop nào đáp ứng yêu cầu hiện tại. Hãy thử tăng ngân sách hoặc giảm bớt yêu cầu cấu hình.</p>{% endif %}
+  </section>
+
+  <section class="split">
+    <article class="panel"><h2>Vì sao điểm số được tính như vậy?</h2>
+      <p class="hint">Mức độ quan trọng của từng tiêu chí theo ưu tiên bạn đã chọn:</p>
+      {% for key, value in scenarios[selected_scenario].weights.items() %}
+      <div class="weight"><span>{{ criteria[key].label }}</span><div><i style="width: {{ value * 100 }}%"></i></div><b>{{ (value * 100)|int }}%</b></div>
+      {% endfor %}
+    </article>
+    <article class="panel"><h2>Vì sao có lựa chọn bị loại?</h2><div class="rejected">
+      {% for row in result.rejected %}<p><strong>{{ row.model }}</strong><br>{{ row.reasons|join('; ') }}</p>{% else %}<p>Không có lựa chọn nào bị loại.</p>{% endfor %}
+    </div></article>
+  </section>
+
+  <section class="panel">
+    <details>
+      <summary><h2 class="inline">Xem toàn bộ bảng so sánh</h2></summary>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Hạng</th><th>Model</th><th>OS</th><th>Giá</th><th>CPU</th><th>GPU</th><th>RAM</th><th>SSD</th><th>Pin</th><th>Kg</th><th>Điểm</th></tr></thead>
+        <tbody>{% for row in result.ranked %}<tr>
+          <td>{{ row.rank }}</td><td>{{ row.model }}</td><td>{{ row.os_platform }}</td><td>{{ row.price_million_vnd }}</td><td>{{ row.cpu_score|int }}</td><td>{{ row.gpu_score|int }}</td><td>{{ row.ram_gb|int }}</td><td>{{ row.ssd_gb|int }}</td><td>{{ row.battery_hours }}</td><td>{{ row.weight_kg }}</td><td><strong>{{ '%.4f'|format(row.score) }}</strong></td>
+        </tr>{% endfor %}</tbody>
+      </table></div>
+    </details>
+  </section>
+
+  <footer>
+    <p>LaptopFit minh họa cách xếp hạng laptop bằng phương pháp lọc theo yêu cầu, chuẩn hoá điểm và tính điểm theo trọng số ưu tiên. Dữ liệu trên trang là dữ liệu mô phỏng, không phải tư vấn mua hàng thực tế.</p>
+  </footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,4 @@
+laptop_id,model,os_platform,price_million_vnd,cpu_score,gpu_score,ram_gb,ssd_gb,battery_hours,weight_kg,simulation_note
+VD01,Vi du Laptop A,Windows,25.0,7000,4000,16,512,8.0,1.50,Vi du - thay bang laptop thuc te cua ban
+VD02,Vi du Laptop B,macOS,32.0,8000,5000,16,512,10.0,1.30,Vi du - thay bang laptop thuc te cua ban
+VD03,Vi du Laptop C,Linux,20.0,6500,3800,16,512,7.5,1.60,Vi du - thay bang laptop thuc te cua ban
