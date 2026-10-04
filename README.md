@@ -9,7 +9,8 @@ Project dùng hard filter + min–max + WSM để xếp hạng laptop mô phỏn
 ## Chạy nhanh trên macOS/Linux
 
 ```bash
-cd /Users/hoangthuan/learn/ho_tro_ra_quyet_dinh/HoangCongThuan
+git clone https://github.com/CongThuan02/dss-laptop-mobiledev.git
+cd dss-laptop-mobiledev
 chmod +x run.sh
 ./run.sh
 ```
@@ -48,16 +49,12 @@ python app.py
 ## Cấu trúc
 
 ```text
-├── 01_DE_XUAT_VA_DAC_TA.md       # Đặc tả đã xác nhận
 ├── app.py                         # Giao diện Flask
 ├── data/
 │   ├── raw/laptops_simulated.csv # 24 phương án mô phỏng
 │   ├── template/mau_du_lieu_dau_vao.csv # File mẫu để người dùng tự điền và tải lên
 │   └── data_dictionary.md
-├── diagrams/drawio/               # 6 sơ đồ Draw.io và ảnh PNG
-├── report/BAO_CAO_THEO_MAU_DIEM_B_new.md
-├── report/HoangCongThuan_DiemA.docx  # Báo cáo cuối, đúng mẫu Điểm A
-├── results/                       # Kết quả tái lập CSV/JSON
+├── scripts/                       # Script hỗ trợ (tạo sơ đồ, tái cấu trúc báo cáo)
 ├── src/dss/model.py               # Lõi hard filter/min–max/WSM
 ├── src/run_analysis.py            # Phân tích hàng loạt và What-if
 ├── static/ và templates/          # Giao diện
